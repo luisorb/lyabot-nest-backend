@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsNumber, IsOptional, Min, Max } from 'class-validator';
+import { IsString, IsNumber, IsBoolean, IsOptional, Min, Max } from 'class-validator';
 
-export class SendMessageDto {
+export class EnhancedMessageDto {
   @ApiProperty({ description: 'Prompt del usuario' })
   @IsString()
   prompt: string;
@@ -32,4 +32,14 @@ export class SendMessageDto {
   @Min(50)
   @Max(4000)
   maxTokens?: number;
+
+  @ApiPropertyOptional({ description: 'ID de sesión para contexto' })
+  @IsOptional()
+  @IsString()
+  sessionId?: string;
+
+  @ApiPropertyOptional({ description: 'Usar contexto de conversación' })
+  @IsOptional()
+  @IsBoolean()
+  useContext?: boolean;
 }
